@@ -58,10 +58,10 @@ public class Bank {
         try {
             // Check if the fromAccount has sufficient balance
             if (fromAccount.getBalance() >= amount) {
-                // Withdraw money from the fromAccount
-                fromAccount.withdraw(amount);
                 // Deposit money to the toAccount
                 toAccount.deposit(amount);
+                // Withdraw money from the fromAccount
+                fromAccount.withdraw(amount);
                 // Print transfer details
                 System.out.println("__________________Transfer__________________");
                 System.out.println("Transfer successful:");
