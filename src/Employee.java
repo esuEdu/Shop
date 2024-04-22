@@ -9,6 +9,9 @@ public class Employee extends Thread {
         this.bank = bank;
     }
 
+    @Override
+    public void run() {}
+
     public int getRoutingNumber() {
         return salaryAccount.getRoutingNumber();
     }

@@ -63,12 +63,14 @@ public class Bank {
                 // Deposit money to the toAccount
                 toAccount.deposit(amount);
                 // Print transfer details
+                System.out.println("__________________Transfer__________________");
                 System.out.println("Transfer successful:");
                 System.out.println("Amount transferred: " + amount);
                 System.out.println("From Account: " + fromAccount.getRoutingNumber());
                 System.out.println("To Account: " + toAccount.getRoutingNumber());
                 System.out.println("From Account Balance after transfer: " + fromAccount.getBalance());
                 System.out.println("To Account Balance after transfer: " + toAccount.getBalance());
+                System.out.println("__________________End__________________");
             } else {
                 System.out.println("Insufficient balance in the fromAccount.");
             }

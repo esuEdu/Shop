@@ -27,6 +27,9 @@ public class Main {
         Customer[] customers = new Customer[5];
         for (int i = 0; i < 5; i++) {
             customers[i] = new Customer(customerAccounts[i], shops, bank);
+        }
+
+        for (int i = 0; i < 5; i++) {
             customers[i].start();
         }
     }
