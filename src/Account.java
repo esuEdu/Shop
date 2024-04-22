@@ -5,7 +5,7 @@
 public class Account {
 
     // Private variable to store the routing number of the account
-    final private int routingNumber;
+    private final int routingNumber;
 
     // Private variable to store the balance of the account
     private Double balance;
