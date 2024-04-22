@@ -32,28 +32,6 @@ public class Bank {
     }
 
     /**
-     * Method to remove an account from the bank.
-     *
-     * @param account the account to be removed
-     */
-    public void removeAccount(Account account) {
-        // Remove the account from the list
-        accounts.remove(account);
-    }
-
-    /**
-     * Method to get the total balance of all accounts in the bank.
-     *
-     * @return the total balance of all accounts
-     */
-    public Double getTotalBalance() {
-        // Calculate the total balance using streams
-        return accounts.stream()
-                .mapToDouble(Account::getBalance)
-                .sum();
-    }
-
-    /**
      * Method to find an account by its routing number.
      *
      * @param routingNumber the routing number to search for
@@ -84,6 +62,15 @@ public class Bank {
                 fromAccount.withdraw(amount);
                 // Deposit money to the toAccount
                 toAccount.deposit(amount);
+                // Print transfer details
+                System.out.println("Transfer successful:");
+                System.out.println("Amount transferred: " + amount);
+                System.out.println("From Account: " + fromAccount.getRoutingNumber());
+                System.out.println("To Account: " + toAccount.getRoutingNumber());
+                System.out.println("From Account Balance after transfer: " + fromAccount.getBalance());
+                System.out.println("To Account Balance after transfer: " + toAccount.getBalance());
+            } else {
+                System.out.println("Insufficient balance in the fromAccount.");
             }
         } finally {
             // Release the lock
