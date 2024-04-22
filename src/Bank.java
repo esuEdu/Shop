@@ -1,10 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 /**
  * The Bank class represents a bank that manages a collection of accounts.
  */
 public class Bank {
+    private final Lock lock = new ReentrantLock();
 
     // Private list to store the accounts managed by the bank
     private final List<Account> accounts;
@@ -58,21 +60,16 @@ public class Bank {
                 .orElse(null);
     }
 
-    /**
-     * Method to transfer funds between two accounts in the bank.
-     *
-     * @param fromAccount the account to transfer funds from
-     * @param toAccount the account to transfer funds to
-     * @param amount the amount to transfer
-     * @return true if the transfer was successful, false otherwise
-     */
-    public boolean transferFunds(Account fromAccount, Account toAccount, Double amount) {
-        if (fromAccount.getBalance() >= amount) {
-            fromAccount.withdraw(amount);
-            toAccount.deposit(amount);
-            return true;
+    public void transfer(Account fromAccount, Account toAccount, Double amount) {
+        lock.lock();
+        try {
+            if (fromAccount.getBalance() >= amount) {
+                fromAccount.withdraw(amount);
+                toAccount.deposit(amount);
+            }
+        } finally {
+            lock.unlock();
         }
-        return false;
     }
 }
 
