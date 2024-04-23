@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-
 /**
  * The Bank class represents a bank that manages a collection of accounts.
  */
@@ -16,8 +15,14 @@ public class Bank {
     // Private list to store the accounts managed by the bank
     private final List<Account> accounts;
 
+    // PropertyChangeSupport to handle property change events
     private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
+    /**
+     * Add a property change listener.
+     *
+     * @param listener the listener to add
+     */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.addPropertyChangeListener(listener);
     }
@@ -30,7 +35,6 @@ public class Bank {
         this.accounts = new ArrayList<>();
     }
 
-
     /**
      * Method to add an account to the bank.
      *
@@ -41,13 +45,17 @@ public class Bank {
         accounts.add(account);
     }
 
-
+    /**
+     * Retrieve all accounts managed by the bank.
+     *
+     * @return list of accounts
+     */
     public List<Account> getAllAccounts() {
         return accounts;
     }
 
     /**
-     * Method to find an account by its routing number.
+     * Find an account by its routing number.
      *
      * @param routingNumber the routing number to search for
      * @return the account with the given routing number, or null if not found
@@ -61,7 +69,7 @@ public class Bank {
     }
 
     /**
-     * Method to transfer money between two accounts.
+     * Transfer money between two accounts.
      *
      * @param fromAccount the account to transfer money from
      * @param toAccount   the account to transfer money to
@@ -77,21 +85,23 @@ public class Bank {
                 toAccount.deposit(amount);
                 // Withdraw money from the fromAccount
                 fromAccount.withdraw(amount);
+
                 // Print transfer details
-                System.out.println("__________________Transfer__________________");
                 System.out.println("Transfer successful:");
                 System.out.println("Amount transferred: " + amount);
                 System.out.println("From Account: " + fromAccount.getRoutingNumber());
                 System.out.println("To Account: " + toAccount.getRoutingNumber());
                 System.out.println("From Account Balance after transfer: " + fromAccount.getBalance());
                 System.out.println("To Account Balance after transfer: " + toAccount.getBalance());
-                System.out.println("__________________End__________________");
+                System.out.println("____________________________________________");
             } else {
                 System.out.println("Insufficient balance in the fromAccount.");
             }
         } finally {
             // Release the lock
             lock.unlock();
+
+            // Notify property change listeners about the transfer
             changeSupport.firePropertyChange(Integer.toString(toAccount.getRoutingNumber()), null, amount);
         }
     }

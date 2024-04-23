@@ -13,7 +13,7 @@ public class Account {
     /**
      * Constructor for Account class with initial balance and routing number.
      *
-     * @param balance initial balance of the account
+     * @param balance       initial balance of the account
      * @param routingNumber the routing number of the account
      */
     public Account(Double balance, int routingNumber) {
@@ -21,6 +21,11 @@ public class Account {
         this.routingNumber = routingNumber;
     }
 
+    /**
+     * Retrieve the routing number of the account.
+     *
+     * @return the routing number
+     */
     public int getRoutingNumber() {
         return routingNumber;
     }
@@ -40,6 +45,7 @@ public class Account {
      * @param amount amount to be withdrawn
      */
     public void withdraw(Double amount) {
+        // Deduct the amount from the balance
         this.balance -= amount;
     }
 
@@ -49,9 +55,15 @@ public class Account {
      * @param amount amount to be deposited
      */
     public void deposit(Double amount) {
+        // Add the amount to the balance
         this.balance += amount;
     }
 
+    /**
+     * Override the toString method to provide a string representation of the Account object.
+     *
+     * @return a string representation of the Account object
+     */
     @Override
     public String toString() {
         return "Account{"
