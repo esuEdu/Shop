@@ -1,3 +1,6 @@
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * The Shop class represents a shop with a store account, employees, and a bank.
  * It manages the payment of employees based on the balance of the store account.
@@ -7,7 +10,8 @@ public class Shop {
     private final Employee[] employees;  // Array of employees
     private final Bank bank;             // Bank to facilitate transactions
     private int currentEmployeeIndex = 0; // To keep track of the last employee paid
-
+    // Lock to synchronize access to shared resources
+    private final Lock lock = new ReentrantLock();
     /**
      * Constructor for Shop class.
      *
@@ -46,15 +50,22 @@ public class Shop {
      * It transfers salary to employees from the store account.
      */
     public void payEmployees() {
-        while (storeAccount.getBalance() >= employees[currentEmployeeIndex].getSalary()) {
-            // Transfer salary to the employee
-            bank.transfer(storeAccount, bank.findAccountByRoutingNumber(employees[currentEmployeeIndex].getRoutingNumber()), 1400.0);
+        // Acquire the lock to ensure thread-safe transfer
+        lock.lock();
+        try {
+            while (storeAccount.getBalance() >= employees[currentEmployeeIndex].getSalary()) {
+                // Transfer salary to the employee
+                bank.transfer(storeAccount, bank.findAccountByRoutingNumber(employees[currentEmployeeIndex].getRoutingNumber()), 1400.0);
 
-            // Invest salary of the employee
-            employees[currentEmployeeIndex].investSalary();
+                // Invest salary of the employee
+                employees[currentEmployeeIndex].investSalary();
 
-            // Move to the next employee
-            currentEmployeeIndex = (currentEmployeeIndex + 1) % employees.length;
+                // Move to the next employee
+                currentEmployeeIndex = (currentEmployeeIndex + 1) % employees.length;
+            }
+        } finally {
+            // Release the lock
+            lock.unlock();
         }
     }
 }
