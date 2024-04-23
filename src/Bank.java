@@ -1,7 +1,10 @@
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
 
 /**
  * The Bank class represents a bank that manages a collection of accounts.
@@ -13,6 +16,12 @@ public class Bank {
     // Private list to store the accounts managed by the bank
     private final List<Account> accounts;
 
+    private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
     /**
      * Constructor for Bank class.
      */
@@ -20,6 +29,7 @@ public class Bank {
         // Initialize the list of accounts
         this.accounts = new ArrayList<>();
     }
+
 
     /**
      * Method to add an account to the bank.
@@ -29,6 +39,11 @@ public class Bank {
     public void addAccount(Account account) {
         // Add the account to the list
         accounts.add(account);
+    }
+
+
+    public List<Account> getAllAccounts() {
+        return accounts;
     }
 
     /**
@@ -58,10 +73,10 @@ public class Bank {
         try {
             // Check if the fromAccount has sufficient balance
             if (fromAccount.getBalance() >= amount) {
-                // Withdraw money from the fromAccount
-                fromAccount.withdraw(amount);
                 // Deposit money to the toAccount
                 toAccount.deposit(amount);
+                // Withdraw money from the fromAccount
+                fromAccount.withdraw(amount);
                 // Print transfer details
                 System.out.println("__________________Transfer__________________");
                 System.out.println("Transfer successful:");
@@ -77,6 +92,7 @@ public class Bank {
         } finally {
             // Release the lock
             lock.unlock();
+            changeSupport.firePropertyChange(Integer.toString(toAccount.getRoutingNumber()), null, amount);
         }
     }
 }

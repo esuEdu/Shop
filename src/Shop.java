@@ -1,3 +1,6 @@
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 public class Shop {
     private final Account storeAccount;
     private final Employee[] employees;
@@ -8,6 +11,16 @@ public class Shop {
         this.storeAccount = storeAccount;
         this.employees = employees;
         this.bank = bank;
+        this.bank.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals(Integer.toString(storeAccount.getRoutingNumber()))) {
+                    if (storeAccount.getBalance() >= 1400.0 ) {
+                        payEmployees();
+                    }
+                }
+            }
+        });
     }
 
     public int getRoutingNumber() {
@@ -16,7 +29,7 @@ public class Shop {
 
     public void payEmployees() {
         while (storeAccount.getBalance() >= employees[currentEmployeeIndex].getSalary()) {
-            bank.transfer(storeAccount, bank.findAccountByRoutingNumber(employees[currentEmployeeIndex].getRoutingNumber()), employees[currentEmployeeIndex].getSalary());
+            bank.transfer(storeAccount, bank.findAccountByRoutingNumber(employees[currentEmployeeIndex].getRoutingNumber()), 1400.0);
             employees[currentEmployeeIndex].investSalary();
             // Move to the next employee
             currentEmployeeIndex = (currentEmployeeIndex + 1) % employees.length;
