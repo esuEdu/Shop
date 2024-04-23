@@ -1,6 +1,3 @@
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 /**
  * The Shop class represents a shop with a store account, employees, and a bank.
  * It manages the payment of employees based on the balance of the store account.
@@ -24,15 +21,12 @@ public class Shop {
         this.bank = bank;
 
         // Add a property change listener to the bank
-        this.bank.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                // Check if the property change is related to the store account
-                if (evt.getPropertyName().equals(Integer.toString(storeAccount.getRoutingNumber()))) {
-                    // Check if the store account balance is sufficient to pay employees
-                    if (storeAccount.getBalance() >= 1400.0) {
-                        payEmployees();
-                    }
+        this.bank.addPropertyChangeListener(evt -> {
+            // Check if the property change is related to the store account
+            if (evt.getPropertyName().equals(Integer.toString(storeAccount.getRoutingNumber()))) {
+                // Check if the store account balance is sufficient to pay employees
+                if (storeAccount.getBalance() >= 1400.0) {
+                    payEmployees();
                 }
             }
         });
