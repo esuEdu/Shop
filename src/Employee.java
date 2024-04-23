@@ -21,6 +21,6 @@ public class Employee extends Thread {
     }
 
     public void investSalary() {
-        bank.transfer(salaryAccount, investmentAccount, salaryAccount.getBalance() * 0.20);
+        bank.transfer(salaryAccount, investmentAccount, getSalary() * 0.20);
     }
 }

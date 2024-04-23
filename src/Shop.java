@@ -11,10 +11,9 @@ public class Shop {
         this.storeAccount = storeAccount;
         this.employees = employees;
         this.bank = bank;
-        this.storeAccount.addPropertyChangeListener(new PropertyChangeListener() {
+        this.bank.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                System.out.println(Integer.toString(storeAccount.getRoutingNumber()));
                 if (evt.getPropertyName().equals(Integer.toString(storeAccount.getRoutingNumber()))) {
                     if (storeAccount.getBalance() >= 1400.0 ) {
                         payEmployees();

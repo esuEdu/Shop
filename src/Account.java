@@ -1,6 +1,3 @@
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 /**
  * The Account class represents a simple bank account with methods to get balance,
  * withdraw funds, deposit funds, and set balance.
@@ -12,12 +9,6 @@ public class Account {
 
     // Private variable to store the balance of the account
     private Double balance;
-
-    private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
 
     /**
      * Constructor for Account class with initial balance and routing number.
@@ -59,7 +50,13 @@ public class Account {
      */
     public void deposit(Double amount) {
         this.balance += amount;
-        System.out.println(getRoutingNumber());
-        changeSupport.firePropertyChange(Integer.toString(routingNumber), null, balance);
+    }
+
+    @Override
+    public String toString() {
+        return "Account{"
+                + "balance=" + balance
+                + ", routingNumber=" + routingNumber
+                + '}';
     }
 }
