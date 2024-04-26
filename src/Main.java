@@ -46,7 +46,7 @@ public class Main {
     private static void initializeCustomerAccounts(Bank bank) {
         Account[] customerAccounts = new Account[5];
         for (int i = 0; i < 5; i++) {
-            customerAccounts[i] = new Account(1000.0, i + 1); // routingNumber will be 1 to 5
+            customerAccounts[i] = new Account(1000.0, i + 1, "Customer " + i); // routingNumber will be 1 to 5
             bank.addAccount(customerAccounts[i]);
         }
     }
@@ -54,7 +54,7 @@ public class Main {
     private static void initializeStoreAccounts(Bank bank) {
         Account[] storeAccounts = new Account[2];
         for (int i = 0; i < 2; i++) {
-            storeAccounts[i] = new Account(0.0, i + 100); // routingNumber will be 100 and 101
+            storeAccounts[i] = new Account(0.0, i + 100 , "Store " + i); // routingNumber will be 100 and 101
             bank.addAccount(storeAccounts[i]);
         }
     }
@@ -62,7 +62,7 @@ public class Main {
     private static void initializeEmployeeAccounts(Bank bank) {
         Account[] employeeAccounts = new Account[4];
         for (int i = 0; i < 4; i++) {
-            employeeAccounts[i] = new Account(0.0, i + 200);
+            employeeAccounts[i] = new Account(0.0, i + 200,  "Employee " + i);
             bank.addAccount(employeeAccounts[i]);
         }
     }
@@ -70,7 +70,7 @@ public class Main {
     private static void initializeInvestmentAccounts(Bank bank) {
         Account[] investmentAccounts = new Account[4];
         for (int i = 0; i < 4; i++) {
-            investmentAccounts[i] = new Account(0.0, i + 300);
+            investmentAccounts[i] = new Account(0.0, i + 300, "Employee " + i + " Investment Account");
             bank.addAccount(investmentAccounts[i]);
         }
     }

@@ -56,10 +56,7 @@ public class Shop {
             while (storeAccount.getBalance() >= employees[currentEmployeeIndex].getSalary()) {
                 // Transfer salary to the employee
                 bank.transfer(storeAccount, bank.findAccountByRoutingNumber(employees[currentEmployeeIndex].getRoutingNumber()), 1400.0);
-
-                // Invest salary of the employee
                 employees[currentEmployeeIndex].investSalary();
-
                 // Move to the next employee
                 currentEmployeeIndex = (currentEmployeeIndex + 1) % employees.length;
             }

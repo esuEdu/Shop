@@ -88,11 +88,11 @@ public class Bank {
 
                 // Print transfer details
                 System.out.println("Transfer successful:");
-                System.out.println("Amount transferred: " + amount);
-                System.out.println("From Account: " + fromAccount.getRoutingNumber());
-                System.out.println("To Account: " + toAccount.getRoutingNumber());
-                System.out.println("From Account Balance after transfer: " + fromAccount.getBalance());
-                System.out.println("To Account Balance after transfer: " + toAccount.getBalance());
+                System.out.println("Transfer Amount: $" + amount);
+                System.out.println("From Account: " + fromAccount.getRoutingNumber() + " (" + fromAccount.getUsername() + ")");
+                System.out.println("To Account: " + toAccount.getRoutingNumber() + " (" + toAccount.getUsername() + ")");
+                System.out.println("From Account Balance: $" + String.format("%.2f", fromAccount.getBalance()));
+                System.out.println("To Account Balance: $" + String.format("%.2f", toAccount.getBalance()));
                 System.out.println("____________________________________________");
             } else {
                 System.out.println("Insufficient balance in the fromAccount.");

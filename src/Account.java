@@ -4,6 +4,8 @@
  */
 public class Account {
 
+    private final String username;
+
     // Private variable to store the routing number of the account
     private final int routingNumber;
 
@@ -16,7 +18,8 @@ public class Account {
      * @param balance       initial balance of the account
      * @param routingNumber the routing number of the account
      */
-    public Account(Double balance, int routingNumber) {
+    public Account(Double balance, int routingNumber, String username) {
+        this.username = username;
         this.balance = balance;
         this.routingNumber = routingNumber;
     }
@@ -28,6 +31,15 @@ public class Account {
      */
     public int getRoutingNumber() {
         return routingNumber;
+    }
+
+    /**
+     * Retrieve the username of the account.
+     *
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
     }
 
     /**
@@ -66,9 +78,9 @@ public class Account {
      */
     @Override
     public String toString() {
-        return "Account{"
-                + "balance=" + balance
+        return "Username: " + username
+                + ", balance = $" + balance
                 + ", routingNumber=" + routingNumber
-                + '}';
+                ;
     }
 }
